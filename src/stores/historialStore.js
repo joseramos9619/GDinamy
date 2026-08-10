@@ -1,6 +1,11 @@
 import { defineStore } from "pinia";
 
-import { agregarEntrada, obtenerHistorial } from "@/services/almacenamiento/historialService";
+import {
+  agregarEntrada,
+  eliminarEntrada,
+  obtenerHistorial,
+  vaciarHistorial,
+} from "@/services/almacenamiento/historialService";
 
 export const useHistorialStore = defineStore("historialStore", {
   state: () => ({
@@ -38,6 +43,26 @@ export const useHistorialStore = defineStore("historialStore", {
     async registrarEntrada(entrada) {
       try {
         this.entradas = await agregarEntrada(entrada);
+        return { success: true };
+      } catch (err) {
+        this._setError(err);
+        return { success: false, error: this.errorMensaje };
+      }
+    },
+
+    async eliminarEntrada(id) {
+      try {
+        this.entradas = await eliminarEntrada(id);
+        return { success: true };
+      } catch (err) {
+        this._setError(err);
+        return { success: false, error: this.errorMensaje };
+      }
+    },
+
+    async vaciarHistorial() {
+      try {
+        this.entradas = await vaciarHistorial();
         return { success: true };
       } catch (err) {
         this._setError(err);

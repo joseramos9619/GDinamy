@@ -19,6 +19,14 @@
         :texto="item.estado === 'exito' ? 'Éxito' : 'Error'"
       />
     </template>
+    <template #item.acciones="{ item }">
+      <v-btn
+        icon="mdi-delete"
+        variant="text"
+        size="small"
+        @click="emit('eliminar', item.id)"
+      />
+    </template>
   </v-data-table>
 </template>
 
@@ -30,6 +38,8 @@ defineProps({
   entradas: { type: Array, default: () => [] },
 });
 
+const emit = defineEmits(["eliminar"]);
+
 const headers = [
   { title: "Fecha", key: "fecha" },
   { title: "Operación", key: "operacion" },
@@ -38,5 +48,6 @@ const headers = [
   { title: "Ruta", key: "ruta" },
   { title: "Duración", key: "duracionMs" },
   { title: "Estado", key: "estado" },
+  { title: "", key: "acciones", sortable: false },
 ];
 </script>
