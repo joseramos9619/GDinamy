@@ -6,6 +6,7 @@ use crate::sidecar::config_file::escribir_config_uri;
 use crate::sidecar::events::ejecutar_sidecar;
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ParametrosRestauracion {
     pub uri: String,
     pub origen: String,

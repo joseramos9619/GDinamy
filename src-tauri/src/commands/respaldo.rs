@@ -6,12 +6,14 @@ use crate::sidecar::config_file::{escribir_config_uri, escribir_query_file};
 use crate::sidecar::events::ejecutar_sidecar;
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct SeleccionColeccion {
     pub nombre: String,
     pub query: Option<serde_json::Value>,
 }
 
 #[derive(Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub struct ParametrosRespaldo {
     pub uri: String,
     pub destino: String,
