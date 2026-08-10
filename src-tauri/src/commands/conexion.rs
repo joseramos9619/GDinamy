@@ -10,7 +10,7 @@ use crate::state::AppState;
 #[serde(rename_all = "camelCase")]
 pub struct InfoBaseDatos {
     pub nombre: String,
-    pub tamano_bytes: i64,
+    pub tamano_bytes: u64,
 }
 
 #[tauri::command]
