@@ -1,4 +1,5 @@
 import { useProgresoProceso } from "@/composables/useProgresoProceso";
+import { agregarEntrada } from "@/services/almacenamiento/historialService";
 import { ejecutarRespaldo } from "@/services/mongo/respaldoService";
 
 export default {
@@ -36,6 +37,7 @@ export default {
       await ejecutarRespaldo(parametros);
 
       this.ultimoResultado = { success: true, duracionMs: Date.now() - inicio };
+      await this._registrarHistorial(this.ultimoResultado);
       return this.ultimoResultado;
     } catch (err) {
       this._setError(err);
@@ -44,10 +46,25 @@ export default {
         error: this.errorMensaje,
         duracionMs: Date.now() - inicio,
       };
+      await this._registrarHistorial(this.ultimoResultado);
       return this.ultimoResultado;
     } finally {
       desuscribir();
       this.ejecutando = false;
     }
+  },
+
+  async _registrarHistorial(resultado) {
+    await agregarEntrada({
+      id: crypto.randomUUID(),
+      fecha: new Date().toISOString(),
+      operacion: "respaldo",
+      tipo: this.tipo,
+      baseDatos: this.baseDatos || "Todas",
+      ruta: this.destino,
+      duracionMs: resultado.duracionMs,
+      estado: resultado.success ? "exito" : "error",
+      error: resultado.error || null,
+    });
   },
 };
