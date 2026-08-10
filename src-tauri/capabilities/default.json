@@ -5,6 +5,16 @@
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "opener:default"
+    "dialog:default",
+    "store:default",
+    {
+      "identifier": "shell:allow-execute",
+      "allow": [
+        { "name": "binaries/mongodump", "sidecar": true, "args": true },
+        { "name": "binaries/mongorestore", "sidecar": true, "args": true },
+        { "name": "binaries/mongoexport", "sidecar": true, "args": true },
+        { "name": "binaries/mongoimport", "sidecar": true, "args": true }
+      ]
+    }
   ]
 }
