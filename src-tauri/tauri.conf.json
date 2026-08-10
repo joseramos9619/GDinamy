@@ -13,8 +13,10 @@
     "windows": [
       {
         "title": "GDinamy",
-        "width": 800,
-        "height": 600
+        "width": 1100,
+        "height": 750,
+        "minWidth": 860,
+        "minHeight": 600
       }
     ],
     "security": {
@@ -30,6 +32,12 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
+    ],
+    "externalBin": [
+      "binaries/mongodump",
+      "binaries/mongorestore",
+      "binaries/mongoexport",
+      "binaries/mongoimport"
     ]
   }
 }
