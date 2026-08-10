@@ -1,4 +1,5 @@
 import { useProgresoProceso } from "@/composables/useProgresoProceso";
+import { agregarEntrada } from "@/services/almacenamiento/historialService";
 import { ejecutarRestauracion } from "@/services/mongo/restauracionService";
 
 export default {
@@ -14,14 +15,13 @@ export default {
     });
 
     const inicio = Date.now();
+    const espaciosNombres = this.espaciosNombresTexto
+      .split("\n")
+      .map((linea) => linea.trim())
+      .filter(Boolean);
 
     try {
       await suscribir();
-
-      const espaciosNombres = this.espaciosNombresTexto
-        .split("\n")
-        .map((linea) => linea.trim())
-        .filter(Boolean);
 
       const parametros = {
         uri: this.uri,
@@ -34,6 +34,7 @@ export default {
       await ejecutarRestauracion(parametros);
 
       this.ultimoResultado = { success: true, duracionMs: Date.now() - inicio };
+      await this._registrarHistorial(this.ultimoResultado, espaciosNombres);
       return this.ultimoResultado;
     } catch (err) {
       this._setError(err);
@@ -42,10 +43,25 @@ export default {
         error: this.errorMensaje,
         duracionMs: Date.now() - inicio,
       };
+      await this._registrarHistorial(this.ultimoResultado, espaciosNombres);
       return this.ultimoResultado;
     } finally {
       desuscribir();
       this.ejecutando = false;
     }
+  },
+
+  async _registrarHistorial(resultado, espaciosNombres) {
+    await agregarEntrada({
+      id: crypto.randomUUID(),
+      fecha: new Date().toISOString(),
+      operacion: "restauracion",
+      tipo: espaciosNombres.length ? "parcial" : "completo",
+      baseDatos: espaciosNombres.length ? espaciosNombres.join(", ") : "Todas",
+      ruta: this.origen,
+      duracionMs: resultado.duracionMs,
+      estado: resultado.success ? "exito" : "error",
+      error: resultado.error || null,
+    });
   },
 };
