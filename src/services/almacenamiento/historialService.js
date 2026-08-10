@@ -21,3 +21,16 @@ export const agregarEntrada = async (entrada) => {
   await store.set("entradas", entradas);
   return entradas;
 };
+
+export const eliminarEntrada = async (id) => {
+  const store = await obtenerAlmacen();
+  const entradas = ((await store.get("entradas")) || []).filter((e) => e.id !== id);
+  await store.set("entradas", entradas);
+  return entradas;
+};
+
+export const vaciarHistorial = async () => {
+  const store = await obtenerAlmacen();
+  await store.set("entradas", []);
+  return [];
+};
