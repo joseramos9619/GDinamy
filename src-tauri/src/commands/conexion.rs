@@ -7,6 +7,7 @@ use crate::mongo::client::get_or_create_client;
 use crate::state::AppState;
 
 #[derive(Serialize)]
+#[serde(rename_all = "camelCase")]
 pub struct InfoBaseDatos {
     pub nombre: String,
     pub tamano_bytes: i64,
