@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="d-flex justify-space-between align-center mb-4">
-      <h1 class="text-h5">
+      <h1 class="pagina-titulo">
         Conexiones
       </h1>
       <v-btn
