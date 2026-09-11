@@ -8,8 +8,14 @@ import "vuetify/styles";
 import "./estilos.css";
 
 import { createVuetify } from "vuetify";
+import { es } from "vuetify/locale";
 
 export default createVuetify({
+  locale: {
+    locale: "es",
+    fallback: "en",
+    messages: { es },
+  },
   icons: {
     defaultSet: "mdi",
   },
