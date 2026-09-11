@@ -1,0 +1,31 @@
+/* Tipografía base de la app; el monoespaciado queda reservado a datos reales
+   (URIs, rutas, salida de consola) para que siempre señale "esto es un dato
+   del sistema", nunca como recurso decorativo. */
+.v-application {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+.fuente-datos {
+  font-family: "JetBrains Mono", "Consolas", monospace;
+}
+
+.pagina-titulo {
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c7d0ce;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
