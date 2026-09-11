@@ -14,6 +14,12 @@ pub struct ParametrosRestauracion {
     pub espacios_nombres: Option<Vec<String>>,
     pub eliminar_antes: bool,
     pub canal_progreso: String,
+    /// Nombre de la base de datos tal cual figura en el backup. Junto con
+    /// `restaurar_como`, habilita `--nsFrom`/`--nsTo` para renombrar la base
+    /// durante la restauración.
+    pub base_datos_origen: Option<String>,
+    /// Nombre con el que se debe crear/restaurar la base de datos destino.
+    pub restaurar_como: Option<String>,
 }
 
 #[tauri::command]
@@ -36,6 +42,15 @@ pub async fn run_restore(
     if let Some(espacios) = &parametros.espacios_nombres {
         for espacio_nombre in espacios {
             args.push(format!("--nsInclude={espacio_nombre}"));
+        }
+    }
+
+    if let (Some(base_datos_origen), Some(restaurar_como)) =
+        (&parametros.base_datos_origen, &parametros.restaurar_como)
+    {
+        if !base_datos_origen.is_empty() && !restaurar_como.is_empty() {
+            args.push(format!("--nsFrom={base_datos_origen}.*"));
+            args.push(format!("--nsTo={restaurar_como}.*"));
         }
     }
 
