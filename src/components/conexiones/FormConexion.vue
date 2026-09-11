@@ -12,6 +12,7 @@
       v-model="uri"
       label="URI de conexión"
       placeholder="mongodb://usuario:contraseña@host:puerto"
+      class="fuente-datos"
       :rules="[reglaRequerido]"
     />
     <div class="d-flex ga-2 justify-end">

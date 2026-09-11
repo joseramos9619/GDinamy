@@ -4,8 +4,11 @@
       v-for="perfil in perfiles"
       :key="perfil.id"
       :title="perfil.nombre"
-      :subtitle="perfil.uri"
     >
+      <template #subtitle>
+        <span class="fuente-datos text-caption">{{ perfil.uri }}</span>
+      </template>
+
       <template #append>
         <v-btn
           icon="mdi-connection"
