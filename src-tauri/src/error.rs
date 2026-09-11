@@ -23,3 +23,17 @@ impl Serialize for AppError {
         serializer.serialize_str(&self.to_string())
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn mensaje_se_serializa_como_string_plano() {
+        let err = AppError::Mensaje("algo salió mal".to_string());
+
+        let serializado = serde_json::to_string(&err).expect("debería poder serializarse");
+
+        assert_eq!(serializado, "\"algo salió mal\"");
+    }
+}
