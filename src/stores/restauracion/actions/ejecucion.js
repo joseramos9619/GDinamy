@@ -28,6 +28,8 @@ export default {
         origen: this.origen,
         espaciosNombres: espaciosNombres.length ? espaciosNombres : null,
         eliminarAntes: this.eliminarAntes,
+        baseDatosOrigen: this.baseDatosOrigen?.trim() || null,
+        restaurarComo: this.restaurarComo?.trim() || null,
         canalProgreso: canal,
       };
 

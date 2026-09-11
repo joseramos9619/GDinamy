@@ -19,6 +19,11 @@
             @elegir="store.elegirOrigen"
           />
 
+          <RenombrarBaseDatos
+            v-model:base-datos-origen="baseDatosOrigen"
+            v-model:restaurar-como="restaurarComo"
+          />
+
           <SelectorColeccionesRestore
             :model-value="espaciosNombresTexto"
             :eliminar-antes="eliminarAntes"
@@ -72,6 +77,7 @@ import { storeToRefs } from "pinia";
 import { useConexionesStore } from "@/stores/conexionesStore";
 import { useRestauracionStore } from "@/stores/restauracion";
 import ConsolaProgreso from "@/components/comunes/ConsolaProgreso.vue";
+import RenombrarBaseDatos from "./RenombrarBaseDatos.vue";
 import SelectorColeccionesRestore from "./SelectorColeccionesRestore.vue";
 import SelectorOrigenRestore from "./SelectorOrigenRestore.vue";
 
@@ -85,6 +91,8 @@ const {
   origen,
   eliminarAntes,
   espaciosNombresTexto,
+  baseDatosOrigen,
+  restaurarComo,
   isError,
   errorMensaje,
   ejecutando,
@@ -97,7 +105,13 @@ const itemsConexiones = computed(() =>
   perfiles.value.map((perfil) => ({ title: perfil.nombre, value: perfil.id })),
 );
 
-const puedeIniciar = computed(() => !!uri.value && !!origen.value && !ejecutando.value);
+const renombreIncompleto = computed(
+  () => !!baseDatosOrigen.value?.trim() !== !!restaurarComo.value?.trim(),
+);
+
+const puedeIniciar = computed(
+  () => !!uri.value && !!origen.value && !ejecutando.value && !renombreIncompleto.value,
+);
 
 const handleSeleccionarConexion = (id) => {
   const perfil = perfiles.value.find((p) => p.id === id);
