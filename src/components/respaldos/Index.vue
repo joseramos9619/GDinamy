@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="text-h5 mb-4">
+    <h1 class="pagina-titulo mb-4">
       Respaldos
     </h1>
     <WizardRespaldo @finalizado="handleFinalizado" />

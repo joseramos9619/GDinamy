@@ -43,7 +43,7 @@
           label="Carpeta destino"
           readonly
           append-inner-icon="mdi-folder-open"
-          class="mt-4"
+          class="mt-4 fuente-datos"
           @click:append-inner="store.elegirDestino"
         />
 
