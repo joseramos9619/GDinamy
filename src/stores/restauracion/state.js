@@ -9,6 +9,8 @@ export default () => ({
   origen: "",
   eliminarAntes: false,
   espaciosNombresTexto: "", // una línea por "baseDatos.coleccion"; vacío = restaurar todo
+  baseDatosOrigen: "",
+  restaurarComo: "",
 
   // Ejecución
   ejecutando: false,
