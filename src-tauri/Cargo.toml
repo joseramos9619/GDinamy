@@ -1,6 +1,6 @@
 [package]
 name = "gdinamy"
-version = "0.1.0"
+version = "0.2.0"
 description = "Copias de seguridad completas y parciales de bases de datos MongoDB"
 authors = ["Jose Ramos"]
 edition = "2021"
